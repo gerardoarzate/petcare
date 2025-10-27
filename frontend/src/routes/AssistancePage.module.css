@@ -61,7 +61,7 @@
     flex-direction: column;
     padding: 0 16px;
     gap: 8px;
-    color: var(--secondary);
+    /* color: var(--secondary); */
 }
 
 .availablePatientFormLabelTitle {

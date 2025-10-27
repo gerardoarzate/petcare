@@ -3,7 +3,7 @@ import PatientIcon from '../assets/material-symbols--medical-mask.svg?react';
 import ClinicianIcon from '../assets/maki--doctor.svg?react';
 import { useNavigate } from 'react-router';
 import { BigButton } from '../components/BigButton';
-import Logo from '../assets/logo.svg?react';
+import img from '../assets/pet.png';
 import styles from './IndexPage.module.css';
 import SettingsIcon from '../assets/material-symbols--settings-rounded.svg?react';
 
@@ -21,7 +21,7 @@ export const IndexPage = () => {
 
             <div className={styles.logoSection}>
                 <div className={styles.logoContainer}>
-                    <Logo/>
+                    <img src={img}/>
                 </div>
             </div>
             
@@ -32,14 +32,14 @@ export const IndexPage = () => {
                     icon={<PatientIcon />}
                     onClick={() => navigate('signup-patient')}
                 >
-                    SOY PACIENTE
+                    SOY USUARIO
                 </BigRoundedButton>
 
                 <BigRoundedButton
                     icon={<ClinicianIcon/>}
                     onClick={() => navigate('signup-clinician')}
                 >
-                    SOY MÉDICO
+                    SOY VETERINARIO
                 </BigRoundedButton>
 
                 <p className={styles.text}>Si ya eres usuario</p>

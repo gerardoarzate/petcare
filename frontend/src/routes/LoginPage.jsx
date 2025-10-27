@@ -1,6 +1,6 @@
 import styles from './LoginPage.module.css';
-import Logo from '../assets/logo.svg?react';
-import DoctorsImage from '../assets/doctors-rafiki.svg?react';
+import logo from '../assets/logo.png';
+import doctorsImage from '../assets/vet.png';
 import { Input } from '../components/Input';
 import { Button } from '../components/Button';
 import { BackButton } from '../components/BackButton';
@@ -40,16 +40,16 @@ export const LoginPage = () => {
 
             <div className={styles.logoSection}>
                 <div className={styles.logoContainer}>
-                    <Logo />
+                    <img src={logo} />
                 </div>
                 <div className={styles.logoText}>
-                    Aramedic
+                    Pet Care
                 </div>
             </div>
 
             <div className={styles.contentSection}>
                 <div className={styles.imageContainer}>
-                    <DoctorsImage />
+                    <img src={doctorsImage} style={{ height: 'auto', width: '60%' }} />
                 </div>
 
                 <p className={styles.textBold}>

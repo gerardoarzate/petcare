@@ -12,7 +12,7 @@ export const Input = ({ label, name, type = 'text', color, value, onChange, sett
 
     return (
         <label className={styles.input}>
-            <p style={{ color: color }}>
+            <p style={{ color: 'inherit' }}>
                 {label}
             </p>
             { type == 'textarea' ? (

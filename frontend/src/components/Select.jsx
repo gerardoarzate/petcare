@@ -30,7 +30,7 @@ export const Select = ({ label, name, color, value, options = [], onChange, sett
 
     return (
         <label className={styles.select}>
-            <p style={{ color: color }}>
+            <p style={{ color: 'inherit' }}>
                 {label}
             </p>
             <select
