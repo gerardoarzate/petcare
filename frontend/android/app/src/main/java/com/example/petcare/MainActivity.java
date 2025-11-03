@@ -1,4 +1,4 @@
-package com.example.aramedic;
+package com.example.petcare;
 
 import com.getcapacitor.BridgeActivity;
 
