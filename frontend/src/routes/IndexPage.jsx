@@ -1,23 +1,25 @@
 import { BigRoundedButton } from '../components/BigRoundedButton';
 import PatientIcon from '../assets/material-symbols--medical-mask.svg?react';
-import ClinicianIcon from '../assets/maki--doctor.svg?react';
+// import ClinicianIcon from '../assets/maki--doctor.svg?react';
+import ClinicianIcon from '../assets/fa6-solid--user-doctor.svg?react';
 import { useNavigate } from 'react-router';
 import { BigButton } from '../components/BigButton';
 import img from '../assets/pet.png';
 import styles from './IndexPage.module.css';
 import SettingsIcon from '../assets/material-symbols--settings-rounded.svg?react';
+import ProfileIcon from '../assets/iconamoon--profile-fill.svg?react';
 
 export const IndexPage = () => {
     const navigate = useNavigate();
 
     return (
         <main className={styles.indexPage}>
-            <div
+            {/* <div
                 className={styles.settingsContainer}
                 onClick={() => navigate('/app-settings')}
             >
                 <SettingsIcon />
-            </div>
+            </div> */}
 
             <div className={styles.logoSection}>
                 <div className={styles.logoContainer}>
@@ -29,7 +31,8 @@ export const IndexPage = () => {
                 <p className={styles.text}>¡Bienvenido! Crea una cuenta para comenzar</p>
 
                 <BigRoundedButton
-                    icon={<PatientIcon />}
+                    // icon={<PatientIcon />}
+                    icon={<ProfileIcon />}
                     onClick={() => navigate('signup-patient')}
                 >
                     SOY USUARIO

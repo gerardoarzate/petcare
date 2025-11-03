@@ -15,38 +15,38 @@ export const ClinicianSignUpPage = () => {
     const { setToken } = useToken();
     const navigate = useNavigate();
 
-    const [specialities, setSpecialities] = useState();
+    // const [specialities, setSpecialities] = useState();
     const [formData, setFormData] = useState({
         name: '',
         lastname: '',
         licence: '',
-        speciality: '',
+        // speciality: '',
         telephone: '',
         email: '',
         password: ''
     });
 
-    useEffect(() => {
-        fetchApi('specialities')
-            .then(res => {
-                setSpecialities(res.specialities);
-            })
-            .catch(async error => {
-                await Dialog.alert({
-                    title: 'Error',
-                    message: 'No se ha podido obtener la lista de especialidades, intenta de nuevo'
-                });
-                navigate('/');
-                throw new Error(`Unable to fetch specialities: ${error.message}`);
-            })
-    }, []);
+    // useEffect(() => {
+    //     fetchApi('specialities')
+    //         .then(res => {
+    //             setSpecialities(res.specialities);
+    //         })
+    //         .catch(async error => {
+    //             await Dialog.alert({
+    //                 title: 'Error',
+    //                 message: 'No se ha podido obtener la lista de especialidades, intenta de nuevo'
+    //             });
+    //             navigate('/');
+    //             throw new Error(`Unable to fetch specialities: ${error.message}`);
+    //         })
+    // }, []);
 
     const isFormDataValid = (formData) => {
         return (
             formData.name &&
             formData.lastname &&
             formData.licence &&
-            formData.speciality &&
+            // formData.speciality &&
             formData.telephone &&
             formData.email &&
             formData.password
@@ -54,10 +54,10 @@ export const ClinicianSignUpPage = () => {
     }
 
     const onConfirm = () => {
-        const chosenSpecialityObj = specialities.find(s => s.name == formData.speciality);
-        const specialityId = chosenSpecialityObj?.id;
+        // const chosenSpecialityObj = specialities.find(s => s.name == formData.speciality);
+        // const specialityId = chosenSpecialityObj?.id;
 
-        if (!isFormDataValid(formData) || !specialityId) {
+        if (!isFormDataValid(formData) /*|| !specialityId*/) {
             Dialog.alert({
                 title: 'Datos incorrectos',
                 message: 'Verifica los datos y vuelve a intentarlo'
@@ -67,9 +67,9 @@ export const ClinicianSignUpPage = () => {
 
         const requestBody = {
             ...formData,
-            idSpeciality: specialityId
+            // idSpeciality: specialityId
         };
-        requestBody.speciality = undefined;
+        // requestBody.speciality = undefined;
 
         fetchApi('medics', 'POST', requestBody)
             .then(async res => {
@@ -94,7 +94,7 @@ export const ClinicianSignUpPage = () => {
                 <div className={styles.backButtonContainer}>
                     <BackButton />
                 </div>
-                <h1 className={styles.title}>Soy médico</h1>
+                <h1 className={styles.title}>Datos veterinario</h1>
             </div>
 
             <Input
@@ -121,7 +121,7 @@ export const ClinicianSignUpPage = () => {
                 value={formData.licence}
                 setterFunction={setFormData}
             />
-            { specialities ? (
+            {/* { specialities ? (
                     <Select
                         color='var(--secondary)'
                         label='Especialidad'
@@ -135,7 +135,7 @@ export const ClinicianSignUpPage = () => {
                         Cargando especialidades...
                     </InfoItem>
                 )
-            }
+            } */}
             <Input
                 color='var(--secondary)'
                 label='Número telefónico'

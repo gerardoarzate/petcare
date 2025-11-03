@@ -1,6 +1,6 @@
 {
-  "appId": "com.example.aramedic",
-  "appName": "Aramedic",
+  "appId": "com.example.petcare",
+  "appName": "Petcare",
   "webDir": "dist",
   "android": {
     "allowMixedContent": true

@@ -15,11 +15,11 @@ export const PatientSignUpPage = () => {
     const [formData, setFormData] = useState({
         name: '',
         lastname: '',
-        curp: '',
-        sex: undefined,
-        age: '',
-        height: '',
-        weight: '',
+        // curp: '',
+        // sex: undefined,
+        // age: '',
+        // height: '',
+        // weight: '',
         telephone: '',
         email: '',
         password: ''
@@ -29,11 +29,11 @@ export const PatientSignUpPage = () => {
         return (
             formData.name &&
             formData.lastname &&
-            formData.curp &&
-            formData.sex &&
-            formData.age &&
-            formData.height &&
-            formData.weight &&
+            // formData.curp &&
+            // formData.sex &&
+            // formData.age &&
+            // formData.height &&
+            // formData.weight &&
             formData.telephone &&
             formData.email &&
             formData.password
@@ -50,10 +50,10 @@ export const PatientSignUpPage = () => {
         }
 
         const requestBody = { ...formData }
-        requestBody.sex = formData.sex.toLowerCase() == 'masculino' ? 'M' : 'F';
-        requestBody.age = Number(formData.age);
-        requestBody.weight = Number(formData.weight);
-        requestBody.height = Number(formData.height);
+        // requestBody.sex = formData.sex.toLowerCase() == 'masculino' ? 'M' : 'F';
+        // requestBody.age = Number(formData.age);
+        // requestBody.weight = Number(formData.weight);
+        // requestBody.height = Number(formData.height);
 
         fetchApi('patients', 'POST', requestBody)
             .then(async res => {
@@ -78,7 +78,7 @@ export const PatientSignUpPage = () => {
                 <div className={styles.backButtonContainer}>
                     <BackButton />
                 </div>
-                <h1 className={styles.title}>Soy paciente</h1>
+                <h1 className={styles.title}>Datos personales</h1>
             </div>
 
             <Input
@@ -97,49 +97,49 @@ export const PatientSignUpPage = () => {
                 value={formData.lastname}
                 setterFunction={setFormData}
             />
-            <Input
+            {/* <Input
                 color='var(--secondary)'
                 label='CURP'
                 name='curp'
                 type='text'
                 value={formData.curp}
                 setterFunction={setFormData}
-            />
-            <SegmentedControl
+            /> */}
+            {/* <SegmentedControl
                 color='var(--secondary)'
                 label='Sexo'
                 name='sex'
                 value={formData.sex}
                 setterFunction={setFormData}
                 options={sexOptions}
-            />
-            <Input
+            /> */}
+            {/* <Input
                 color='var(--secondary)'
                 label='Edad'
                 name='age'
                 type='number'
                 value={formData.age}
                 setterFunction={setFormData}
-            />
-            <Input
+            /> */}
+            {/* <Input
                 color='var(--secondary)'
                 label='Estatura (metros)'
                 name='height'
                 type='number'
                 value={formData.height}
                 setterFunction={setFormData}
-            />
-            <Input
+            /> */}
+            {/* <Input
                 color='var(--secondary)'
                 label='Peso (kg)'
                 name='weight'
                 type='number'
                 value={formData.weight}
                 setterFunction={setFormData}
-            />
+            /> */}
             <Input
                 color='var(--secondary)'
-                label='Teléfono'
+                label='Teléfono de contacto'
                 name='telephone'
                 type='text'
                 value={formData.telephone}
