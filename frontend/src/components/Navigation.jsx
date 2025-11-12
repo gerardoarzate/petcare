@@ -4,6 +4,8 @@ import PatientIcon from '../assets/material-symbols--medical-mask.svg?react';
 import ChatIcon from '../assets/mynaui--message-solid.svg?react';
 import ProfileIcon from '../assets/iconamoon--profile-fill.svg?react';
 import ClinicianIcon from '../assets/maki--doctor.svg?react';
+import QuickQuestionIcon from '../assets/mingcute--question-fill.svg?react'
+import PetIcon from '../assets/streamline-plump--pet-paw-solid.svg?react';
 import { NavigationItem } from './NavigationItem';
 import { useToken } from '../contexts/TokenContext';
 
@@ -16,7 +18,7 @@ const clinicianItems = [
 	{
 		label: 'Paciente',
 		path: 'counterpart',
-		IconComponent: PatientIcon
+		IconComponent: ProfileIcon
 	},
 	{
 		label: 'Chat',
@@ -26,7 +28,7 @@ const clinicianItems = [
 	{
 		label: 'Perfil',
 		path: 'profile',
-		IconComponent: ProfileIcon
+		IconComponent: ClinicianIcon
 	}
 ];
 
@@ -37,7 +39,7 @@ const patientItems = [
 		IconComponent: AssistanceIcon
 	},
 	{
-		label: 'Médico',
+		label: 'Vet',
 		path: 'counterpart',
 		IconComponent: ClinicianIcon
 	},
@@ -45,6 +47,16 @@ const patientItems = [
 		label: 'Chat',
 		path: 'chat',
 		IconComponent: ChatIcon
+	},
+	{
+		label: 'Dudas',
+		path: 'chat',
+		IconComponent: QuickQuestionIcon
+	},
+	{
+		label: 'Mascota',
+		path: 'profile',
+		IconComponent: PetIcon
 	},
 	{
 		label: 'Perfil',
@@ -55,7 +67,7 @@ const patientItems = [
 
 export const Navigation = () => {
 	const userType = useToken().tokenData?.type;
-	const items = userType == 'MEDICO' ? clinicianItems : patientItems;
+	const items = userType == 'VET' ? clinicianItems : patientItems;
 
 	return (
 		<div className={styles.navigation}>

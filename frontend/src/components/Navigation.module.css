@@ -2,6 +2,6 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 12px 24px;
+    padding: 12px 12px;
     background-color: var(--secondary);
 }
