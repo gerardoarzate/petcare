@@ -81,6 +81,11 @@ export const ProfilePage = () => {
     const userType = useToken().tokenData?.type;
     const items = userType == 'MEDICO' ? clinicianItems : patientItems;
     const profile = useProfile();
+    
+    return  <>
+    <div className={styles.logOutContainer}>
+                <LogOutButton />
+            </div></>
 
     return (
         <main className={styles.profilePage}>
