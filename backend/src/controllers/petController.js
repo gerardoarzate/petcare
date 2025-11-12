@@ -1,21 +1,20 @@
-const patientRepository = require("../repositories/patientRepository");
+const petRepository = require("../repositories/petRepository");
 const { generateToken } = require("../utils/tokenUtils");
 
 
-const createPatient = async (req, res, next) => {
+const createPet = async (req, res, next) => {
     const patient = req.body;
     if(
         !patient ||
         !patient.name ||
         !patient.lastname ||
-        !patient.password ||
-        !patient.curp ||
-        !patient.age ||
-        !['M', 'F'].includes(patient.sex) ||
-        !patient.height ||
-        !patient.weight ||
         !patient.email ||
-        !patient.telephone
+        !patient.telephone ||
+        !patient.password ||
+        !patient.petName ||
+        !['macho', 'hembra'].includes(patient.petSex) ||
+        !patient.petAge ||
+        !patient.speciesId
     ){
         return res.status(400).json({
             message: 'Petición incorrecta'
@@ -23,8 +22,8 @@ const createPatient = async (req, res, next) => {
     }
     try{
 
-        const patientCreated = await patientRepository.createPatient(patient);
-        const token = generateToken(patientCreated.id, "PACIENTE");
+        const patientCreated = await petRepository.createPet(patient);
+        const token = generateToken(patientCreated.id, "PET");
     
         const response = {
             message: "Patient created",
@@ -43,5 +42,5 @@ const createPatient = async (req, res, next) => {
 
 
 module.exports = {
-    createPatient
+    createPet
 };

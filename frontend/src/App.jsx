@@ -15,6 +15,7 @@ import { ProfileProvider } from "./contexts/ProfileContext";
 import { EmergencyTypesProvider } from "./contexts/EmergencyTypesContext";
 import { AssistanceServiceProvider } from './contexts/AssistanceServiceContext';
 import { LocationProvider } from "./contexts/LocationContext";
+import { SpeciesProvider } from "./contexts/SpeciesContext";
 
 export const App = () => {
     return (
@@ -23,8 +24,9 @@ export const App = () => {
 				<TokenProvider>
 					<APIProvider>
 						<AssistanceServiceProvider>
-							<ProfileProvider>
+							{/* <ProfileProvider> */}
 								<EmergencyTypesProvider>
+									<SpeciesProvider>
 									<Routes>
 										<Route index element={<IndexPage />} />
 										<Route path="login" element={<LoginPage />} />
@@ -39,8 +41,9 @@ export const App = () => {
 											<Route path="profile" element={<ProfilePage />} />
 										</Route>
 									</Routes>
+									</SpeciesProvider>
 								</EmergencyTypesProvider>
-							</ProfileProvider>
+							{/* </ProfileProvider> */}
 						</AssistanceServiceProvider>
 					</APIProvider>
 				</TokenProvider>

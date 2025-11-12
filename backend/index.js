@@ -13,11 +13,12 @@ async function startServer() {
     await connectDB();
     const socketController = require('./src/controllers/socketController');
     const loginRoute = require('./src/routes/login'); // IMPORTANT: load the routes after connecting to the database
-    const medicRoutes = require('./src/routes/medicRoutes');// because routes need the database connection already established
-    const patientRoutes = require('./src/routes/patientRoute');
-    const specialityRoutes = require('./src/routes/specialityRoute');
+    const vetRoutes = require('./src/routes/vetRoutes');// because routes need the database connection already established
+    const petRoutes = require('./src/routes/petRoute');
+    const specieRoutes = require('./src/routes/speciesRoute');
     const userRoutes = require('./src/routes/userRoutes');
     const emergencyRoutes = require('./src/routes/emergencyRoutes');
+    const serviceRoutes = require('./src/routes/servicesRoute');
 
     const server = app.listen(process.env.PORT || 3000, () => {
         console.log(`Listening on port ${server.address().port}`);
@@ -37,9 +38,10 @@ async function startServer() {
     // routes which don't need authentication
     app.get('/', function (req, res) { res.sendFile(__dirname + '/' + 'test-index.html'); });
     app.use(loginRoute);
-    app.use(medicRoutes);
-    app.use(patientRoutes);
-    app.use(specialityRoutes);
+    app.use(vetRoutes);
+    app.use(petRoutes);
+    app.use(specieRoutes);
+    app.use(serviceRoutes);
     io.on('connection', socketController(io));
     
     app.use( (()=>{try{return require('./test/connectedUsersEndpoint')}catch(e){return (req, res, next)=>{next()}}})()  ) // DELETE TEST

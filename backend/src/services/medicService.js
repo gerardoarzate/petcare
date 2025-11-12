@@ -1,5 +1,5 @@
-const medicRepository = require('../repositories/medicRepository');
-const specialityRepository = require('../repositories/specialityRepository');
+const medicRepository = require('../repositories/vetRepository');
+const specialityRepository = require('../repositories/specieRepository');
 
 /**
  * 

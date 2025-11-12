@@ -50,9 +50,9 @@ DROP TABLE IF EXISTS `mascotas`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `mascotas` (
   `id_usuario` int NOT NULL,
-  `nombre` varchar(50) NOT NULL,
-  `sexo` enum('macho','hembra') NOT NULL,
-  `edad` int DEFAULT NULL,
+  `nombre_mascota` varchar(50) NOT NULL,
+  `sexo_mascota` enum('macho','hembra') NOT NULL,
+  `edad_mascota` int DEFAULT NULL,
   `notas` text,
   `id_especie` int DEFAULT NULL,
   PRIMARY KEY (`id_usuario`),

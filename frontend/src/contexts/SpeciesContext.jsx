@@ -1,11 +1,9 @@
-// CHANGES TO SERVICE TYPES
-
 import { createContext, useContext, useState } from 'react';
 import { useToken } from './TokenContext';
 import { useAPI } from './APIContext';
 import { Dialog } from '@capacitor/dialog';
 
-const EmergencyTypesContext = createContext(
+const SpeciesContext = createContext(
     [ {
         id: 0,
         name: '',
@@ -13,38 +11,38 @@ const EmergencyTypesContext = createContext(
     } ]
 );
 
-export const EmergencyTypesProvider = ({ children }) => {
+export const SpeciesProvider = ({ children }) => {
     const { token } = useToken();
     const { fetchApi } = useAPI();
     const [types, setTypes] = useState([]);
     const areTypesLoaded = types.length > 0;
     
     if (token && !areTypesLoaded) {
-        fetchApi('services')
+        fetchApi('species')
             .then(res => {
-                const { services } = res;
-                setTypes(services);
+                const { species } = res;
+                setTypes(species);
             })
             .catch(async error => {
-                console.error(`Unable to load service types: ${error.message}`);
+                console.error(`Unable to load species: ${error.message}`);
                 await Dialog.alert({
                     title: 'Error',
-                    message: 'No ha sido posible cargar los tipos de servicio, por favor, vuelve a cargar la pantalla'
+                    message: 'No ha sido posible cargar las especies, por favor, vuelve a cargar la pantalla'
                 });
             });
     }
 
     return (
-        <EmergencyTypesContext.Provider value={types}>
+        <SpeciesContext.Provider value={types}>
             {children}
-        </EmergencyTypesContext.Provider>
+        </SpeciesContext.Provider>
     );
 }
 
-export const useEmergencyTypes = () => {
-    const types = useContext(EmergencyTypesContext);
+export const useSpecies = () => {
+    const types = useContext(SpeciesContext);
     if (!types) {
-        throw new Error('useEmergencyTypes must be used within a EmergencyTypesProvider');
+        throw new Error('useSpecies must be used within a SpeciesProvider');
     }
     return types;
 }

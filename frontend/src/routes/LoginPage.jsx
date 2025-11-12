@@ -19,17 +19,17 @@ export const LoginPage = () => {
     });
 
     const onConfirm = () => {
-        // fetchApi('login', 'POST', formData)
-        //     .then(async res => {
-        //         setToken(res.token);
-        //     })
-        //     .catch(error => {
-        //         console.log(error.message);
-        //         Dialog.alert({
-        //             title: 'No ha sido posible iniciar sesión',
-        //             message: 'Verifica los datos y vuelve a intentarlo.'
-        //         });
-        //     });
+        fetchApi('login', 'POST', formData)
+            .then(async res => {
+                setToken(res.token);
+            })
+            .catch(error => {
+                console.log(error.message);
+                Dialog.alert({
+                    title: 'No ha sido posible iniciar sesión',
+                    message: 'Verifica los datos y vuelve a intentarlo.'
+                });
+            });
     };
 
     return (

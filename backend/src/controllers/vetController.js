@@ -1,4 +1,4 @@
-const medicRepository = require('../repositories/medicRepository');
+const vetRepository = require('../repositories/vetRepository');
 const { generateToken } = require('../utils/tokenUtils');
 
 
@@ -11,7 +11,7 @@ const BAD_REQUEST_RESPONSE = { message: "Bad fields, check your data" };
  * los datos del médico creado
  * @throws {Error} si hay un error en la consulta
  */
-const createmedic = async (req, res, next) => {
+const createVet = async (req, res, next) => {
 
 ;
     const medic = req.body;
@@ -22,7 +22,7 @@ const createmedic = async (req, res, next) => {
         !medic.telephone ||
         !medic.email ||
         !medic.licence ||
-        !medic.idSpeciality ||
+        !medic.schedule ||
         medic.licence.length > 10
     ){
         return res.status(400).json(BAD_REQUEST_RESPONSE);
@@ -30,8 +30,8 @@ const createmedic = async (req, res, next) => {
 
     try{
 
-        const medicCreated = await medicRepository.createMedic(medic);
-        const token = generateToken(medicCreated.id, "MEDICO");
+        const medicCreated = await vetRepository.createVet(medic);
+        const token = generateToken(medicCreated.id, "VET");
     
         const response = {
             message: "medic created",
@@ -50,7 +50,7 @@ const createmedic = async (req, res, next) => {
 
 
 module.exports = {
-    createmedic
+    createVet
 }
 
 

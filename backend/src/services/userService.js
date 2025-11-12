@@ -1,8 +1,8 @@
 const { Socket, Server } = require("socket.io");
-const patientRepository = require("../repositories/patientRepository");
+const patientRepository = require("../repositories/petRepository");
 const requestService = require("./requestService");
 const medicService = require("./medicService");
-const medicRepository = require('../repositories/medicRepository');
+const medicRepository = require('../repositories/vetRepository');
 const distanceCalculator = require("../utils/distanceCalculator");
 const TIME_TO_VERIFY_IF_REQUESTS_CAN_BE_ASSIGNED = 1700; // 1.7 seconds
 // const TIME_TO_VERIFY_IF_REQUESTS_CAN_BE_ASSIGNED = 7000; // 7 seconds

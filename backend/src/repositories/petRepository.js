@@ -8,8 +8,8 @@ const { hashPassword, generateToken } = require('../utils/tokenUtils');
  * @returns {Promise<{id: number, name: string, lastname: string, curp: string, age: number, sex: 'M' | 'F', height: number, weight: number, email: string, telephone: string}>}
  * los datos del paciente creado
  */
-const createPatient = async (patient) => { 
-
+const createPet = async (patient) => { 
+console.log(patient)
     const passwordHashed = await hashPassword(patient.password);
     const insertUserQuery = `
         INSERT INTO usuarios(nombre, apellidos, email, telefono, password) VALUES(?, ?, ?, ?, ?)
@@ -19,15 +19,15 @@ const createPatient = async (patient) => {
     const insertedId = result.insertId;
 
     const insertPacientQuery = `
-        INSERT INTO pacientes(id_usuario, curp, edad, sexo, peso, estatura) VALUES(?, ?, ?, ?, ?, ?)
+        INSERT INTO mascotas(id_usuario, nombre_mascota, edad_mascota, sexo_mascota, notas, id_especie) VALUES(?, ?, ?, ?, ?, ?)
     `;
     try{
-        await db.query(insertPacientQuery, [insertedId, patient.curp, patient.age, patient.sex, patient.weight, patient.height]);
+        await db.query(insertPacientQuery, [insertedId, patient.petName, patient.petAge, patient.petSex, patient.notes, patient.speciesId]);
     }catch{
         await db.query(`DELETE FROM usuarios WHERE id = ?`, [insertedId]);
         throw new Error("Error creating patient");
     }
-    return { id: insertedId, name: patient.name, lastname: patient.lastname, curp: patient.curp, age: patient.age}
+    return { id: insertedId, name: patient.name, lastname: patient.lastname, pet: patient.nombre_mascota}
 };
 
 
@@ -80,6 +80,6 @@ const getPatientById = async (id) => {
 
 
 module.exports = {
-    createPatient,
+    createPet,
     getPatientById
 };

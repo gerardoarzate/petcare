@@ -14,6 +14,9 @@ export const ClinicianSignUpPage = () => {
     const { fetchApi } = useAPI();
     const { setToken } = useToken();
     const navigate = useNavigate();
+    const [page, setPage] = useState(0);
+    const [services, setServices] = useState();
+    const [species, setSpecies] = useState();
 
     // const [specialities, setSpecialities] = useState();
     const [formData, setFormData] = useState({
@@ -23,23 +26,42 @@ export const ClinicianSignUpPage = () => {
         // speciality: '',
         telephone: '',
         email: '',
-        password: ''
+        password: '',
+        schedule: '',
+        services: '',
+        species: ''
     });
 
-    // useEffect(() => {
-    //     fetchApi('specialities')
-    //         .then(res => {
-    //             setSpecialities(res.specialities);
-    //         })
-    //         .catch(async error => {
-    //             await Dialog.alert({
-    //                 title: 'Error',
-    //                 message: 'No se ha podido obtener la lista de especialidades, intenta de nuevo'
-    //             });
-    //             navigate('/');
-    //             throw new Error(`Unable to fetch specialities: ${error.message}`);
-    //         })
-    // }, []);
+    useEffect(() => {
+        fetchApi('services')
+            .then(res => {
+                setServices(res.services);
+            })
+            .catch(async error => {
+                await Dialog.alert({
+                    title: 'Error',
+                    message: 'No se ha podido obtener la lista de servicios, intenta de nuevo'
+                });
+                navigate('/');
+                throw new Error(`Unable to fetch services: ${error.message}`);
+            })
+    }, []);
+
+    useEffect(() => {
+        fetchApi('species')
+            .then(res => {
+                setSpecies(res.species);
+            })
+            .catch(async error => {
+                await Dialog.alert({
+                    title: 'Error',
+                    message: 'No se ha podido obtener la lista de especies, intenta de nuevo'
+                });
+                navigate('/');
+                throw new Error(`Unable to fetch species: ${error.message}`);
+            })
+    }, []);
+    
 
     const isFormDataValid = (formData) => {
         return (
@@ -57,6 +79,11 @@ export const ClinicianSignUpPage = () => {
         // const chosenSpecialityObj = specialities.find(s => s.name == formData.speciality);
         // const specialityId = chosenSpecialityObj?.id;
 
+        if (page === 0) {
+            setPage(1);
+            return;
+        }
+
         if (!isFormDataValid(formData) /*|| !specialityId*/) {
             Dialog.alert({
                 title: 'Datos incorrectos',
@@ -71,7 +98,7 @@ export const ClinicianSignUpPage = () => {
         };
         // requestBody.speciality = undefined;
 
-        fetchApi('medics', 'POST', requestBody)
+        fetchApi('vets', 'POST', requestBody)
             .then(async res => {
                 await Dialog.alert({
                     title: '¡Bienvenido!',
@@ -97,69 +124,114 @@ export const ClinicianSignUpPage = () => {
                 <h1 className={styles.title}>Datos veterinario</h1>
             </div>
 
-            <Input
-                color='var(--secondary)'
-                label='Nombre(s)'
-                name='name'
-                type='text'
-                value={formData.name}
-                setterFunction={setFormData}
-            />
-            <Input
-                color='var(--secondary)'
-                label='Apellido(s)'
-                name='lastname'
-                type='text'
-                value={formData.lastname}
-                setterFunction={setFormData}
-            />
-            <Input
-                color='var(--secondary)'
-                label='Cédula profesional'
-                name='licence'
-                type='text'
-                value={formData.licence}
-                setterFunction={setFormData}
-            />
-            {/* { specialities ? (
-                    <Select
+
+            { page === 0 ? (
+                <>
+                
+                    <Input
                         color='var(--secondary)'
-                        label='Especialidad'
-                        name='speciality'
-                        value={formData.speciality}
+                        label='Nombre(s)'
+                        name='name'
+                        type='text'
+                        value={formData.name}
                         setterFunction={setFormData}
-                        options={specialities.map(s => s.name)}
                     />
-                ) : (
-                    <InfoItem label={'Especialidad'} textColor={'#555'}>
-                        Cargando especialidades...
-                    </InfoItem>
+                    <Input
+                        color='var(--secondary)'
+                        label='Apellido(s)'
+                        name='lastname'
+                        type='text'
+                        value={formData.lastname}
+                        setterFunction={setFormData}
+                    />
+                    <Input
+                        color='var(--secondary)'
+                        label='Cédula profesional'
+                        name='licence'
+                        type='text'
+                        value={formData.licence}
+                        setterFunction={setFormData}
+                    />
+                    {/* { specialities ? (
+                            <Select
+                                color='var(--secondary)'
+                                label='Especialidad'
+                                name='speciality'
+                                value={formData.speciality}
+                                setterFunction={setFormData}
+                                options={specialities.map(s => s.name)}
+                            />
+                        ) : (
+                            <InfoItem label={'Especialidad'} textColor={'#555'}>
+                                Cargando especialidades...
+                            </InfoItem>
+                        )
+                    } */}
+                    <Input
+                        color='var(--secondary)'
+                        label='Número telefónico'
+                        name='telephone'
+                        type='text'
+                        value={formData.telephone}
+                        setterFunction={setFormData}
+                    />
+                    <Input
+                        color='var(--secondary)'
+                        label='Correo electrónico'
+                        name='email'
+                        type='email'
+                        value={formData.email}
+                        setterFunction={setFormData}
+                    />
+                    <Input
+                        color='var(--secondary)'
+                        label='Contraseña'
+                        name='password'
+                        type='password'
+                        value={formData.password}
+                        setterFunction={setFormData}
+                    />
+                </>) : (
+                    <>
+                    { services ? (
+                        <Select
+                            color='var(--secondary)'
+                            label='Servicios que ofrece'
+                            name='services'
+                            value={formData.services}
+                            setterFunction={setFormData}
+                            options={services.map(s => s.name)}
+                        />) : (
+                            <InfoItem label={'Servicios que ofrece'} textColor={'#555'}>
+                                Cargando servicios...
+                            </InfoItem>
+                        )
+                    }
+                    { species ? (
+                        <Select
+                            color='var(--secondary)'
+                            label='Especies que atiende'
+                            name='species'
+                            value={formData.species}
+                            setterFunction={setFormData}
+                            options={species.map(s => s.name)}
+                        />) : (
+                            <InfoItem label={'Especies que atiende'} textColor={'#555'}>
+                                Cargando especies...
+                            </InfoItem>
+                        )
+                    }
+                    <Input
+                        color='var(--secondary)'
+                        label='Horario de atención (por ejemplo: Lunes a Sábado, 9:00 - 18:00 hrs)'
+                        name='schedule'
+                        type='text'
+                        value={formData.schedule}
+                        setterFunction={setFormData}
+                    />
+                    </>
                 )
-            } */}
-            <Input
-                color='var(--secondary)'
-                label='Número telefónico'
-                name='telephone'
-                type='text'
-                value={formData.telephone}
-                setterFunction={setFormData}
-            />
-            <Input
-                color='var(--secondary)'
-                label='Correo electrónico'
-                name='email'
-                type='email'
-                value={formData.email}
-                setterFunction={setFormData}
-            />
-            <Input
-                color='var(--secondary)'
-                label='Contraseña'
-                name='password'
-                type='password'
-                value={formData.password}
-                setterFunction={setFormData}
-            />
+            }
 
             <Button onClick={onConfirm}>
                 Confirmar

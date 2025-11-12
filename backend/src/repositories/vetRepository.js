@@ -3,15 +3,7 @@ const { hashPassword } = require('../utils/tokenUtils');
 
 
 
-/**
- * 
- * @param {{name: string, lastname: string, password: string, telephone: string, email: string, licence: string, idSpeciality: number}} medic 
- * los datos del médico a crear
- * @returns {Promise<{id: number, name: string, lastname: string, telephone: string, email: string, licence: string, idSpeciality: number}>}
- * los datos del médico creado
- * @throws {Error} si hay un error en la consulta
- */
-const createMedic = async (medic) => {
+const createVet = async (medic) => {
 
     const passwordHashed = await hashPassword(medic.password);
     const insertUserQuery = `
@@ -22,15 +14,15 @@ const createMedic = async (medic) => {
         const [result] = await db.query(insertUserQuery, [medic.name, medic.lastname, medic.email, medic.telephone, passwordHashed]);
         insertedId = result.insertId;
         const insertMedicQuery = `
-            INSERT INTO medicos(id_usuario, cedula, id_especialidad) VALUES(?, ?, ?)
+            INSERT INTO veterinarios(id_usuario, cedula, horario) VALUES(?, ?, ?)
         `;
-        await db.query(insertMedicQuery, [insertedId, medic.licence, medic.idSpeciality]);
-        return { id: insertedId, name: medic.name, lastname: medic.lastname, telephone: medic.telephone, email: medic.email, licence: medic.licence, idSpeciality: medic.idSpeciality };
+        await db.query(insertMedicQuery, [insertedId, medic.licence, medic.idSpeciality, medic.schedule]);
+        return { id: insertedId, name: medic.name, lastname: medic.lastname, telephone: medic.telephone, email: medic.email, licence: medic.licence, schedule: medic.schedule };
     }catch(error){
 
         insertedId != null? db.query("DELETE FROM usuarios WHERE id = ?", [insertedId]): null;
     
-        throw new Error("Error creating medic");
+        throw new Error("Error creating medic" + error.message);
     }
 
 };
@@ -89,7 +81,7 @@ const getMedicDataById = async (medicId)=>{
 };
 
 module.exports = {
-    createMedic,
+    createVet,
     getMedicById,
     getMedicDataById
 

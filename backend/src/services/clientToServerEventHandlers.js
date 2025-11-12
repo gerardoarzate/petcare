@@ -1,8 +1,8 @@
 const { Socket, Server } = require('socket.io');
 const userService = require('./userService');
 const requestService = require('./requestService');
-const medicRepository = require('../repositories/medicRepository');
-const patientRepository = require('../repositories/patientRepository');
+const medicRepository = require('../repositories/vetRepository');
+const patientRepository = require('../repositories/petRepository');
 
 const { saveReportToS3 } = require('../utils/s3Helper');
 /**

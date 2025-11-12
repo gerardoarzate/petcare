@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const specialityController = require('../controllers/specialityController');
+const serviceController = require('../controllers/serviceController');
 const verifyUserRole = require('../middlewares/verifyUserRole');
 
 
-router.get('/specialities',  verifyUserRole([]),specialityController.getSpecialities);
+router.get('/services',  verifyUserRole([]),serviceController.getServices);
 
 
 

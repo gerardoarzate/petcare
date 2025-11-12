@@ -1,11 +1,7 @@
 const db = require('../config/db').getDB();
 
-/**
- * 
- * @returns {Promise<speciality[]:{id: number, nombre: string}[]>} array de especialidades
- */
-const getSpecialities = async () => {
-    const queryGetSpecialities = `SELECT * FROM especialidades`;
+const getServices = async () => {
+    const queryGetSpecialities = `SELECT * FROM servicios`;
     const [specialities] = await db.query(queryGetSpecialities);
     return specialities;
 };
@@ -41,6 +37,6 @@ const getSpecilitiesAndEmergenciesAssociatedWithMedicData = async (medicId) => {
  */
 
 module.exports = {
-    getSpecialities,
+    getServices,
     getSpecilitiesAndEmergenciesAssociatedWithMedicData
 };
