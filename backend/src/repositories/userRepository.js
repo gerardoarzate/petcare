@@ -20,8 +20,8 @@ const getUserAndTypeOfUserByEmail = async (email) => {
             usuarios.telefono,
             usuarios.password,
             COALESCE(
-                (SELECT 'MEDICO' FROM medicos WHERE medicos.id_usuario = usuarios.id LIMIT 1), 
-                (SELECT 'PACIENTE' FROM pacientes WHERE pacientes.id_usuario = usuarios.id LIMIT 1)
+                (SELECT 'VET' FROM veterinarios WHERE veterinarios.id_usuario = usuarios.id LIMIT 1), 
+                (SELECT 'PET' FROM mascotas WHERE mascotas.id_usuario = usuarios.id LIMIT 1)
             ) AS tipo
         FROM 
         usuarios 
