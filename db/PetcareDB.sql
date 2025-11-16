@@ -106,7 +106,7 @@ DROP TABLE IF EXISTS `solicitudes`;
 CREATE TABLE `solicitudes` (
   `id` int NOT NULL AUTO_INCREMENT,
   `id_emergencia` int DEFAULT NULL,
-  `id_medico` int DEFAULT NULL,
+  `id_veterinario` int DEFAULT NULL,
   `id_mascota` int NOT NULL,
   `fecha` datetime NOT NULL,
   `ubicacion_inicial` varchar(100) NOT NULL,
@@ -114,11 +114,11 @@ CREATE TABLE `solicitudes` (
   `notas` text,
   PRIMARY KEY (`id`),
   KEY `id_emergencia` (`id_emergencia`),
-  KEY `id_medico` (`id_medico`),
-  KEY `id_paciente` (`id_mascota`),
+  KEY `id_veterinario` (`id_veterinario`),
+  KEY `id_mascota` (`id_mascota`),
   CONSTRAINT `fk_solicitud_mascota` FOREIGN KEY (`id_mascota`) REFERENCES `mascotas` (`id_usuario`),
   CONSTRAINT `solicitudes_ibfk_1` FOREIGN KEY (`id_emergencia`) REFERENCES `servicios` (`id`),
-  CONSTRAINT `solicitudes_ibfk_2` FOREIGN KEY (`id_medico`) REFERENCES `veterinarios` (`id_usuario`)
+  CONSTRAINT `solicitudes_ibfk_2` FOREIGN KEY (`id_veterinario`) REFERENCES `veterinarios` (`id_usuario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

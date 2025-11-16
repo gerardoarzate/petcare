@@ -7,7 +7,7 @@ const bcryptSalt = Number(process.env.BCRYPT_SALT);
 /**
  * 
  * @param {string} userId el id del usuario
- * @param {"MEDICO" | "PACIENTE" | string} type el tipo de usuario
+ * @param {"VET" | "PET" | string} type el tipo de usuario
  * @returns {string} el token generado
  */
 const generateToken = (userId, type) => {

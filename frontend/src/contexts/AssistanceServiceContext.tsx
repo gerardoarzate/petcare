@@ -42,10 +42,10 @@ export const AssistanceServiceProvider = ({ children }) => {
         if (token && !assistanceService) {
             try {
                 switch (tokenData?.type) {
-                    case 'MEDICO':
+                    case 'VET':
                         setAssistanceService(new ClinicianAssistanceService(apiUrl, token, latitude, longitude));
                         break;
-                    case 'PACIENTE':
+                    case 'PET':
                         setAssistanceService(new PatientAssistanceService(apiUrl, token, latitude, longitude));
                         break;
                 }
@@ -79,7 +79,7 @@ export const AssistanceServiceProvider = ({ children }) => {
         let removeCounterpartListener: () => void = () => {};
 
         switch (type) {
-            case 'MEDICO':
+            case 'VET':
                 const clinicianService = (assistanceService as ClinicianAssistanceService);
 
                 const patientListener: PatientListener = patient => setCounterpart(patient);
@@ -90,7 +90,7 @@ export const AssistanceServiceProvider = ({ children }) => {
                     clinicianService.removePatientListener(patientListener);
                 }
                 break;
-            case 'PACIENTE':
+            case 'PET':
                 const patientService = (assistanceService as PatientAssistanceService);
 
                 const clinicianListener: ClinicianListener = patient => setCounterpart(patient);

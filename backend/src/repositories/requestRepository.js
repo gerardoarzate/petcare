@@ -21,7 +21,7 @@ const getRequestById = async (requestId) => {
         id: request.id,
         emergencyId: request.id_emergencia,
         medicId: request.id_medico,
-        patientId: request.id_paciente,
+        patientId: request.id_mascota,
         date: request.fecha,
         initialLocation: request.ubicacion_inicial,
         status: request.estado,
@@ -40,7 +40,7 @@ const getAllPendingRequests = async () => {
         id: request.id,
         emergencyId: request.id_emergencia,
         medicId: request.id_medico,
-        patientId: request.id_paciente,
+        patientId: request.id_mascota,
         date: request.fecha,
         initialLocation: request.ubicacion_inicial,
         status: request.estado,
@@ -56,7 +56,7 @@ const getAllPendingRequests = async () => {
  */
 const createRequest = async (patientId, newRequestData) => {
 
-    const query = 'INSERT INTO solicitudes (id_emergencia, id_paciente, fecha, ubicacion_inicial, estado, notas) VALUES (?, ?, ?, ?, ?, ?)';
+    const query = 'INSERT INTO solicitudes (id_emergencia, id_mascota, fecha, ubicacion_inicial, estado, notas) VALUES (?, ?, ?, ?, ?, ?)';
     const dateRequest = getDateTime();
     const [result] = await db.query(query, [newRequestData.emergencyTypeId, patientId, dateRequest, newRequestData.initialLocation, typeOfRequest.PENDIENTE, newRequestData.notes]);
     return {
@@ -78,13 +78,13 @@ const createRequest = async (patientId, newRequestData) => {
  * @returns {Promise<Request | null>}
  */
 const getPendingRequestByPatientId = async (patientId) => {
-    const [result] = await db.query('SELECT * FROM solicitudes WHERE id_paciente = ? AND estado = ?', [patientId, typeOfRequest.PENDIENTE]);
+    const [result] = await db.query('SELECT * FROM solicitudes WHERE id_mascota = ? AND estado = ?', [patientId, typeOfRequest.PENDIENTE]);
     const request = result[0];
     return !request ? null : {
         id: request.id,
         emergencyId: request.id_emergencia,
         medicId: request.id_medico,
-        patientId: request.id_paciente,
+        patientId: request.id_mascota,
         date: request.fecha,
         initialLocation: request.ubicacion_inicial,
         status: request.estado,
@@ -106,7 +106,7 @@ const getPendingRequestByMedicId = async (medicId) => {
         id: request.id,
         emergencyId: request.id_emergencia,
         medicId: request.id_medico,
-        patientId: request.id_paciente,
+        patientId: request.id_mascota,
         date: request.fecha,
         initialLocation: request.ubicacion_inicial,
         status: request.estado,
@@ -127,7 +127,7 @@ const getAssignedRequestByMedicId = async (medicId) => {
         id: request.id,
         emergencyId: request.id_emergencia,
         medicId: request.id_medico,
-        patientId: request.id_paciente,
+        patientId: request.id_mascota,
         date: request.fecha,
         initialLocation: request.ubicacion_inicial,
         status: request.estado,
@@ -141,13 +141,13 @@ const getAssignedRequestByMedicId = async (medicId) => {
  * @returns {Promise<Request | null>}
  */
 const getAssignedRequestByPatientId = async (patientId) => {
-    const [result] = await db.query('SELECT * FROM solicitudes WHERE id_paciente = ? AND estado = ?', [patientId, typeOfRequest.ASIGNADA]);
+    const [result] = await db.query('SELECT * FROM solicitudes WHERE id_mascota = ? AND estado = ?', [patientId, typeOfRequest.ASIGNADA]);
     const request = result[0];
     return !request ? null : {
         id: request.id,
         emergencyId: request.id_emergencia,
         medicId: request.id_medico,
-        patientId: request.id_paciente,
+        patientId: request.id_mascota,
         date: request.fecha,
         initialLocation: request.ubicacion_inicial,
         status: request.estado,

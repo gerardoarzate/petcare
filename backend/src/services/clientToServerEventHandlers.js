@@ -13,7 +13,7 @@ const { saveReportToS3 } = require('../utils/s3Helper');
 const sendPendingRequestIfExist = async (userConnected) => {
 
     let dataToSend = {};
-    if (userConnected.type == 'PACIENTE') {
+    if (userConnected.type == 'PET') {
         const requestPending = await requestService.getPendingRequestByPatientId(userConnected.userId);
         if (requestPending) {
             userConnected.socket.emit('isRequestCreated', {}); // indicate to the user that he has a request pending
@@ -27,7 +27,7 @@ const sendPendingRequestIfExist = async (userConnected) => {
         userConnected.socket.emit('isRequestCreated', {}); // send a temporal message while the request data is being sent
 
         const medicData = await medicRepository.getMedicById(requestAssigned.medicId);
-        dataToSend = generateMessageFromCounterpartData({ type: 'MEDICO', data: medicData });
+        dataToSend = generateMessageFromCounterpartData({ type: 'VET', data: medicData });
         userConnected.socket.emit('receiveCounterpartData', dataToSend);
 
 
@@ -40,11 +40,11 @@ const sendPendingRequestIfExist = async (userConnected) => {
         }
         userConnected.socket.emit('updateCounterpartLocation', {isOnline: false});
 
-    } else if (userConnected.type == 'MEDICO') {
+    } else if (userConnected.type == 'VET') {
         const requestAssigned = await requestService.getAssignedRequestByMedicId(userConnected.userId);
         if (!requestAssigned) return;
         const patientData = await patientRepository.getPatientById(requestAssigned.patientId);
-        dataToSend = generateMessageFromCounterpartData({ type: 'PACIENTE', data: patientData });
+        dataToSend = generateMessageFromCounterpartData({ type: 'PET', data: patientData });
         dataToSend.notes = requestAssigned.notes;
         userConnected.socket.emit('receiveCounterpartData', {...dataToSend, requestTimestamp: requestAssigned.date.getTime(), emergencyTypeId: requestAssigned.emergencyId});
 
@@ -81,13 +81,13 @@ module.exports = async (socket, io, user) => {
             return async () => {
                 console.log('user disconnected');
                 await userService.removeConnectedUser(userConnected);
-                if(userConnected.type == 'MEDICO'){
+                if(userConnected.type == 'VET'){
                     const patient = await userService.getConnectedPatientById(userConnected?.patientAssigned?.userId);
                     if(patient){
                         patient.socket?.emit('alert', 'El medico se ha desconectado');
                         patient.socket?.emit('updateCounterpartLocation', {isOnline: false});
                     }
-                }else if(userConnected.type == 'PACIENTE'){
+                }else if(userConnected.type == 'PET'){
                     const medic = await userService.getConnectedMedicById(userConnected?.medicAssigned?.userId);
                     if(medic){
                         medic.socket?.emit('alert', 'El paciente se ha desconectado');
@@ -102,13 +102,13 @@ module.exports = async (socket, io, user) => {
 
                 let user = null;
                 
-                if(userConnected.type == 'MEDICO'){
+                if(userConnected.type == 'VET'){
                     user = await userService.getConnectedMedicById(userConnected.userId);
                     if(user?.patientAssigned){
                         user.patientAssigned.socket.emit('receiveMessage', message);
                         return;
                     }
-                }else if(userConnected.type == 'PACIENTE'){
+                }else if(userConnected.type == 'PET'){
                     user = await userService.getConnectedPatientById(userConnected.userId);
                     if(user?.medicAssigned){
                         user.medicAssigned.socket.emit('receiveMessage', message);
@@ -123,13 +123,13 @@ module.exports = async (socket, io, user) => {
             return async (location) => {
                 let currentUser = null;
 
-                if (userConnected.type == 'MEDICO') {
+                if (userConnected.type == 'VET') {
                     currentUser = await userService.getConnectedMedicById(userConnected.userId);
                     
                     if (currentUser?.patientAssigned) {
                         currentUser?.patientAssigned?.socket?.emit('updateCounterpartLocation', {...location, isOnline: true});
                     }
-                }else if(userConnected.type == 'PACIENTE'){
+                }else if(userConnected.type == 'PET'){
                     currentUser = await userService.getConnectedPatientById(userConnected.userId);
                     if(currentUser?.medicAssigned){
                         currentUser?.medicAssigned?.socket?.emit('updateCounterpartLocation', {...location, isOnline: true});
@@ -215,7 +215,7 @@ const generateReportData = async (request)=>{
  * @param {{data: (MedicData | PatientData) type: string}} recipientData 
  */
 const generateMessageFromCounterpartData = (recipientData) => {
-    if (recipientData.type == 'MEDICO') {
+    if (recipientData.type == 'VET') {
 
         return {
             fullname: recipientData.data.lastname + ' ' + recipientData.data.name,
@@ -223,7 +223,7 @@ const generateMessageFromCounterpartData = (recipientData) => {
             speciality: recipientData.data.speciality,
             telephone: recipientData.data.telephone
         }
-    } else if (recipientData.type == 'PACIENTE') {
+    } else if (recipientData.type == 'PET') {
         return {
             fullname: recipientData.data.lastname + ' ' + recipientData.data.name,
             height: recipientData.data.height,

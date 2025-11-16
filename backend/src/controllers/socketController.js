@@ -38,11 +38,11 @@ const handlerNewUserConnection = async (user, socket, io) => {
     const clientToServerEventHandlers = await require('../services/clientToServerEventHandlers')(socket, io, user); // get the event handlers file which contain all the events that the user can do
 
     // every type of user has different events, this can be implemented with a UserFactory, every user has a different event handler, and unique method 
-    if(user.type == 'MEDICO'){// could be invoked for different types of users, and every type of user initialize their own events
+    if(user.type == 'VET'){// could be invoked for different types of users, and every type of user initialize their own events
         handlerMedicConnection(socket, user); // maybe this can be deleted, and all events put in every if
         socket.on('endRequest', clientToServerEventHandlers.endRequest());
         
-    }else if(user.type == 'PACIENTE'){
+    }else if(user.type == 'PET'){
         handlerPatientConnection(socket, user);
         socket.on('createRequest', clientToServerEventHandlers.createRequest());
     }

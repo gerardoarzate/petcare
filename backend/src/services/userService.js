@@ -54,7 +54,7 @@ setInterval(async () => {
         await requestService.assignMedicToRequest(chosenMedic.userId, pendingRequest.id);
         
         const patiendData = await patientRepository.getPatientById(pendingRequest.patientId);
-        const messageToMedic = generateMessageFromCounterpartData({ type: 'PACIENTE', data: patiendData });
+        const messageToMedic = generateMessageFromCounterpartData({ type: 'PET', data: patiendData });
         messageToMedic.notes = pendingRequest.notes;
         messageToMedic.requestTimestamp = pendingRequest.date.getTime();
         messageToMedic.emergencyTypeId = pendingRequest.emergencyId;
@@ -64,7 +64,7 @@ setInterval(async () => {
             await setAssignedPatientToMedic(patientConnected, chosenMedic);
             await setAssignedPatientToMedic(patientConnected, chosenMedic); // just one should be enough but just in case it fails
             const medicData = await medicRepository.getMedicById(chosenMedic.userId);
-            const messageToPatient = generateMessageFromCounterpartData({ type: 'MEDICO', data: medicData });
+            const messageToPatient = generateMessageFromCounterpartData({ type: 'VET', data: medicData });
             patientConnected.socket.emit('receiveCounterpartData', messageToPatient);
         }
 
@@ -95,9 +95,9 @@ const registerUserConnection = async (user, socket) => {
     }
 
     const newUser = { type: user.type, userId: user.userId, location: user.location, socket};
-    if (user.type === 'MEDICO') { // this could be handled with specific methods for each type of user to themself add to the list of users
+    if (user.type === 'VET') { // this could be handled with specific methods for each type of user to themself add to the list of users
         users.medics.push(newUser);
-    } else if (user.type === 'PACIENTE') {
+    } else if (user.type === 'PET') {
         users.patients.push(newUser);
     }
     users.amountOfUsers++;
@@ -167,7 +167,7 @@ const getConnectedMedicById = async (medicId) => {
  */
 const removeConnectedUser = async (userConnected, typeOfMessage = 'alert', message = 'Sesion cerrada') => {
     // this if's could be handled with specific methods for each type of user to themself remove from the list of users
-    if (userConnected.type === 'MEDICO') {
+    if (userConnected.type === 'VET') {
         users.medics = users.medics.filter(u => u.userId !== userConnected.userId);
         patient = users.patients.find(p => p?.medicAssigned?.userId === userConnected.userId);
         if (patient) {
@@ -239,7 +239,7 @@ const setAssignedMedicToPatient = async (medic, patient) => {
 const updateLocation = async (userConnected, location) => {
     userConnected.location = location
 
-    if (userConnected.type === 'MEDICO') {
+    if (userConnected.type === 'VET') {
         users.medics.find(m => m.userId === userConnected.userId).location = location;
     } else {
         users.patients.find(p => p.userId === userConnected.userId).location = location;
@@ -252,7 +252,7 @@ const updateLocation = async (userConnected, location) => {
  * @param {UserConnected} userConnected 
  */
 const removeRelation = (userConnected) => {
-    if (userConnected.type === 'MEDICO') {
+    if (userConnected.type === 'VET') {
         const currentMedic = users.medics.find(m => m.userId === userConnected.userId);
         const currentPatient = users.patients.find(p => p.userId === currentMedic.patientAssigned.userId);
 
@@ -265,7 +265,7 @@ const removeRelation = (userConnected) => {
         }
 
         currentMedic.patientAssigned = null;
-    } else if (userConnected.type === 'PACIENTE') {
+    } else if (userConnected.type === 'PET') {
         const currentPatient = users.patients.find(p => p.userId === userConnected.userId);
         const currentMedic = users.medics.find(m => m.userId === currentPatient.medicAssigned.userId);
 
@@ -354,7 +354,7 @@ const findClosestMedic = async (medics, targetLocation) => {
  * @param {{data: (MedicData | PatientData) type: string}} recipientData 
  */
 const generateMessageFromCounterpartData = (recipientData) => {
-    if (recipientData.type == 'MEDICO') {
+    if (recipientData.type == 'VET') {
 
         return {
             fullname: recipientData.data.name + ' ' + recipientData.data.lastname,
@@ -362,7 +362,7 @@ const generateMessageFromCounterpartData = (recipientData) => {
             speciality: recipientData.data.speciality,
             telephone: recipientData.data.telephone
         }
-    } else if (recipientData.type == 'PACIENTE') {
+    } else if (recipientData.type == 'PET') {
         return {
             fullname: recipientData.data.name + ' ' + recipientData.data.lastname,
             height: recipientData.data.height,

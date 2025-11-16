@@ -88,12 +88,12 @@ const AvailablePatientView = ({ emergencyTypes }) => {
 
     return (
         <div className={styles.availablePatientView}>
-            <PageTitle>Solicitar asistencia médica</PageTitle>
+            <PageTitle>Solicitar atención</PageTitle>
             
-            <div className={styles.availablePatientFormLabelContainer}>
+            {/* <div className={styles.availablePatientFormLabelContainer}>
                 <p className={styles.availablePatientFormLabelTitle}>Tipo de emergencia</p>
                 <p>Seleccione el que mejor describa su emergencia</p>
-            </div>
+            </div> */}
 
             <CardOptionGroup
                 options={emergencyTypes.map(type => ({
@@ -127,7 +127,7 @@ const WaitingPatientView = () => (
             <p>Tu solicitud está</p>
             <p className={styles.waitingPatientColorText}>Pendiente</p>
         </div>
-            <p>En breve te será asignado un médico</p>
+            <p>En breve te será asignado un veterinario</p>
     </div>
 );
 
@@ -170,10 +170,10 @@ export const AssistancePage = () => {
     return (
         <main className={styles.assistancePage}>
             {
-                type == 'MEDICO' ? 
+                type == 'VET' ? 
                     isBusy ? <BusyClinicianView profile={profile} />
                     : <AvailableClinicianView profile={profile} />
-                : type == 'PACIENTE' ?
+                : type == 'PET' ?
                     isBusy ? <BusyPatientView />
                     : isWaiting ? <WaitingPatientView />
                     : <AvailablePatientView emergencyTypes={emergencyTypes} />
