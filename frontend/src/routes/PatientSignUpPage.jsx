@@ -30,6 +30,7 @@ export const PatientSignUpPage = () => {
         species: '',
         petSex: undefined,
         petAge: '',
+        petRace: '',
         notes: ''
     });
 
@@ -63,7 +64,8 @@ export const PatientSignUpPage = () => {
             formData.petName &&
             formData.species &&
             formData.petSex &&
-            formData.petAge
+            formData.petAge &&
+            formData.petRace
         );
     }
 
@@ -199,7 +201,7 @@ export const PatientSignUpPage = () => {
                 </>
             ) : (
                 <>
-                <Input
+                    <Input
                         color='var(--secondary)'
                         label='Nombre de la mascota'
                         name='petName'
@@ -236,6 +238,14 @@ export const PatientSignUpPage = () => {
                         name='petAge'
                         type='number'
                         value={formData.petAge}
+                        setterFunction={setFormData}
+                    />
+                    <Input
+                        color='var(--secondary)'
+                        label='Raza de la mascota'
+                        name='petRace'
+                        type='text'
+                        value={formData.petRace}
                         setterFunction={setFormData}
                     />
                     <Input
