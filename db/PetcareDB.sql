@@ -53,6 +53,7 @@ CREATE TABLE `mascotas` (
   `nombre_mascota` varchar(50) NOT NULL,
   `sexo_mascota` enum('macho','hembra') NOT NULL,
   `edad_mascota` int DEFAULT NULL,
+  `raza_mascota` varchar(50) DEFAULT NULL,
   `notas` text,
   `id_especie` int DEFAULT NULL,
   PRIMARY KEY (`id_usuario`),

@@ -9,7 +9,6 @@ const { hashPassword, generateToken } = require('../utils/tokenUtils');
  * los datos del paciente creado
  */
 const createPet = async (patient) => { 
-console.log(patient)
     const passwordHashed = await hashPassword(patient.password);
     const insertUserQuery = `
         INSERT INTO usuarios(nombre, apellidos, email, telefono, password) VALUES(?, ?, ?, ?, ?)
@@ -19,11 +18,11 @@ console.log(patient)
     const insertedId = result.insertId;
 
     const insertPacientQuery = `
-        INSERT INTO mascotas(id_usuario, nombre_mascota, edad_mascota, sexo_mascota, notas, id_especie) VALUES(?, ?, ?, ?, ?, ?)
+        INSERT INTO mascotas(id_usuario, nombre_mascota, edad_mascota, sexo_mascota, notas, id_especie, raza_mascota) VALUES(?, ?, ?, ?, ?, ?, ?)
     `;
     try{
-        await db.query(insertPacientQuery, [insertedId, patient.petName, patient.petAge, patient.petSex, patient.notes, patient.speciesId]);
-    }catch{
+        await db.query(insertPacientQuery, [insertedId, patient.petName, patient.petAge, patient.petSex, patient.notes, patient.speciesId, patient.petRace]);
+    }catch(e){
         await db.query(`DELETE FROM usuarios WHERE id = ?`, [insertedId]);
         throw new Error("Error creating patient");
     }

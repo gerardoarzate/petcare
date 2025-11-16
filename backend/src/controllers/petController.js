@@ -14,7 +14,8 @@ const createPet = async (req, res, next) => {
         !patient.petName ||
         !['macho', 'hembra'].includes(patient.petSex) ||
         !patient.petAge ||
-        !patient.speciesId
+        !patient.speciesId ||
+        !patient.petRace
     ){
         return res.status(400).json({
             message: 'Petición incorrecta'
