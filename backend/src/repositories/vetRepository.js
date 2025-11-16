@@ -16,7 +16,7 @@ const createVet = async (medic) => {
         const insertMedicQuery = `
             INSERT INTO veterinarios(id_usuario, cedula, horario) VALUES(?, ?, ?)
         `;
-        await db.query(insertMedicQuery, [insertedId, medic.licence, medic.idSpeciality, medic.schedule]);
+        await db.query(insertMedicQuery, [insertedId, medic.licence, medic.schedule]);
         return { id: insertedId, name: medic.name, lastname: medic.lastname, telephone: medic.telephone, email: medic.email, licence: medic.licence, schedule: medic.schedule };
     }catch(error){
 
@@ -33,11 +33,17 @@ const createVet = async (medic) => {
  * @returns {Promise<{id: number, name: string, lastname: string, email: string, telephone: string, licence: string, speciality: string}>}
  */
 const getMedicById = async (id) => {
+    // const query = `
+    //     SELECT u.id, u.nombre, u.apellidos, u.email, u.telefono, m.cedula, e.nombre as especialidad
+    //     FROM usuarios u
+    //     INNER JOIN medicos m ON m.id_usuario = u.id
+    //     INNER JOIN especialidades e ON m.id_especialidad = e.id
+    //     where m.id_usuario = ?
+    // `;
     const query = `
-        SELECT u.id, u.nombre, u.apellidos, u.email, u.telefono, m.cedula, e.nombre as especialidad
+        SELECT *
         FROM usuarios u
-        INNER JOIN medicos m ON m.id_usuario = u.id
-        INNER JOIN especialidades e ON m.id_especialidad = e.id
+        INNER JOIN veterinarios m ON m.id_usuario = u.id
         where m.id_usuario = ?
     `;
     const [result] = await db.query(query, [id]);
@@ -50,7 +56,8 @@ const getMedicById = async (id) => {
         email: medic.email,
         telephone: medic.telefono,
         licence: medic.cedula,
-        speciality: medic.especialidad
+        // speciality: medic.especialidad
+        schedule: medic.horario
     };
 };
 
@@ -61,10 +68,16 @@ const getMedicById = async (id) => {
  */
 const getMedicDataById = async (medicId)=>{
 
-    const query = `
-        SELECT u.id, u.nombre, u.apellidos, u.email, u.telefono, m.cedula, m.id_especialidad as especialidad
+    // const query = `
+    //     SELECT u.id, u.nombre, u.apellidos, u.email, u.telefono, m.cedula, m.id_especialidad as especialidad
+    //     FROM usuarios u
+    //     INNER JOIN veterinarios m ON m.id_usuario = u.id
+    //     where m.id_usuario = ?
+    // `;
+     const query = `
+        SELECT *
         FROM usuarios u
-        INNER JOIN medicos m ON m.id_usuario = u.id
+        INNER JOIN veterinarios m ON m.id_usuario = u.id
         where m.id_usuario = ?
     `;
     const [result] = await db.query(query, [medicId]);
@@ -76,7 +89,8 @@ const getMedicDataById = async (medicId)=>{
         email: medic.email,
         telephone: medic.telefono,
         licence: medic.cedula,
-        idSpeciality: medic.especialidad
+        // idSpeciality: medic.especialidad
+        schedule: medic.horario
     }
 };
 

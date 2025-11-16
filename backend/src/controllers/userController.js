@@ -15,9 +15,9 @@ const getProfileData = async (req, res, next) => {
         }
 
         let user = null;
-        if (userData.tipo == 'medico') {
+        if (userData.tipo == 'veterinario') {
             user = createMedicUserFromUserData(userData);
-        } else if (userData.tipo == 'paciente') {
+        } else if (userData.tipo == 'mascota') {
             user = createPatientUserFromData(userData);
         }
 
@@ -42,7 +42,8 @@ function createMedicUserFromUserData(userData, includePassword = false) {
         email: userData.email,
         telephone: userData.telefono,
         licence: userData.cedula,
-        speciality: userData.especialidad
+        // speciality: userData.especialidad
+        schedule: userData.horario
     };
     if (includePassword) {
         medic.password = userData.password;
@@ -62,11 +63,12 @@ function createPatientUserFromData(userData, includePassword = false) {
         lastname: userData.apellidos,
         email: userData.email,
         telephone: userData.telefono,
-        curp: userData.curp,
-        age: userData.edad,
-        sex: userData.sexo,
-        weight: userData.peso,
-        height: userData.estatura
+        petName: userData.nombre_mascota,
+        petSex: userData.sexo_mascota,
+        petAge: userData.edad_mascota,
+        petRace: userData.raza_mascota,
+        notes: userData.notas,
+        speciesId: userData.id_especie
     };
     if (includePassword) {
         pacient.password = userData.password;

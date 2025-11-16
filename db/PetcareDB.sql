@@ -258,7 +258,7 @@ begin
 	
 	-- DECLARE STATEMENT HAVE A LOCAL SCOPE, just inside a block of code and not outside of a function
 	DECLARE is_pacient BOOLEAN DEFAULT FALSE;
-    SELECT IF( EXISTS (SELECT 1 FROM pacientes WHERE pacientes.id_usuario = id) , 1, 0) INTO is_pacient;
+    SELECT IF( EXISTS (SELECT 1 FROM mascotas WHERE mascotas.id_usuario = id) , 1, 0) INTO is_pacient;
     
     -- used to assign values to variables(either local or session variables)It 
     -- can be used outside of stored procedures as well, for session variables or local procedure variables.
@@ -273,14 +273,15 @@ begin
 			usuarios.email,
 			usuarios.telefono,
             
-            pacientes.curp,
-            pacientes.edad,
-            pacientes.sexo,
-            pacientes.peso,
-            pacientes.estatura,
-            'paciente' as tipo
+            mascotas.nombre_mascota,
+            mascotas.edad_mascota,
+            mascotas.sexo_mascota,
+            mascotas.raza_mascota,
+            mascotas.id_especie,
+            mascotas.notas,
+            'mascota' as tipo
 		FROM usuarios
-        INNER JOIN pacientes on pacientes.id_usuario = usuarios.id
+        INNER JOIN mascotas on mascotas.id_usuario = usuarios.id
 		WHERE usuarios.id = id LIMIT 1
 		;
 	ELSE
@@ -291,12 +292,13 @@ begin
 			usuarios.email,
 			usuarios.telefono,
             
-            medicos.cedula,
-            especialidades.nombre as especialidad,
-            'medico' as tipo
+            veterinarios.cedula,
+            -- especialidades.nombre as especialidad,
+            veterinarios.horario,
+            'veterinario' as tipo
 		FROM usuarios
-        INNER JOIN medicos on medicos.id_usuario = usuarios.id
-        INNER JOIN especialidades ON especialidades.id = medicos.id_especialidad
+        INNER JOIN veterinarios on veterinarios.id_usuario = usuarios.id
+        -- INNER JOIN especialidades ON especialidades.id = medicos.id_especialidad
 		WHERE usuarios.id = id LIMIT 1
 		;
 	END IF;

@@ -36,27 +36,34 @@ const createPet = async (patient) => {
  * @returns {Promise<PatientData>}
  */
 const getPatientById = async (id) => {
+    // const query = `
+    //     SELECT u.id, u.nombre, u.apellidos, u.email, u.telefono, p.curp, p.edad, p.sexo, p.peso, p.estatura
+    //     FROM usuarios u
+    //     INNER JOIN pacientes p ON p.id_usuario = u.id
+    //     where p.id_usuario = ?
+    // `;
     const query = `
-        SELECT u.id, u.nombre, u.apellidos, u.email, u.telefono, p.curp, p.edad, p.sexo, p.peso, p.estatura
+        SELECT *
         FROM usuarios u
-        INNER JOIN pacientes p ON p.id_usuario = u.id
+        INNER JOIN mascotas p ON p.id_usuario = u.id
         where p.id_usuario = ?
     `;
     const [result] = await db.query(query, [id]);
     const patient = result[0];
     
-    return {
-        id: patient.id,
-        name: patient.nombre,
-        lastname: patient.apellidos,
-        email: patient.email,
-        telephone: patient.telefono,
-        curp: patient.curp,
-        age: patient.edad,
-        sex: patient.sexo,
-        weight: patient.peso,
-        height: patient.estatura
-    };
+    return patient;
+    // return {
+    //     id: patient.id,
+    //     name: patient.nombre,
+    //     lastname: patient.apellidos,
+    //     email: patient.email,
+    //     telephone: patient.telefono,
+    //     curp: patient.curp,
+    //     age: patient.edad,
+    //     sex: patient.sexo,
+    //     weight: patient.peso,
+    //     height: patient.estatura
+    // };
 };
 
 

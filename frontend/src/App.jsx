@@ -24,7 +24,7 @@ export const App = () => {
 				<TokenProvider>
 					<APIProvider>
 						<AssistanceServiceProvider>
-							{/* <ProfileProvider> */}
+							<ProfileProvider>
 								<EmergencyTypesProvider>
 									<SpeciesProvider>
 									<Routes>
@@ -43,7 +43,7 @@ export const App = () => {
 									</Routes>
 									</SpeciesProvider>
 								</EmergencyTypesProvider>
-							{/* </ProfileProvider> */}
+							</ProfileProvider>
 						</AssistanceServiceProvider>
 					</APIProvider>
 				</TokenProvider>
