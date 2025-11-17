@@ -100,7 +100,7 @@ const getPendingRequestByPatientId = async (patientId) => {
  * @returns {Promise<Request | null>}
  */
 const getPendingRequestByMedicId = async (medicId) => {
-    const [result] = await db.query('SELECT * FROM solicitudes WHERE id_medico = ? AND estado = ?', [medicId, typeOfRequest.PENDIENTE]);
+    const [result] = await db.query('SELECT * FROM solicitudes WHERE id_veterinario = ? AND estado = ?', [medicId, typeOfRequest.PENDIENTE]);
     const request = result[0];
     return !request ? null : {
         id: request.id,
@@ -121,7 +121,7 @@ const getPendingRequestByMedicId = async (medicId) => {
  * @returns {Promise<Request | null>}
  */
 const getAssignedRequestByMedicId = async (medicId) => {
-    const [result] = await db.query('SELECT * FROM solicitudes WHERE id_medico = ? AND estado = ?', [medicId, typeOfRequest.ASIGNADA]);
+    const [result] = await db.query('SELECT * FROM solicitudes WHERE id_veterinario = ? AND estado = ?', [medicId, typeOfRequest.ASIGNADA]);
     const request = result[0];
     return !request ? null : {
         id: request.id,
