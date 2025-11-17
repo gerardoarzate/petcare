@@ -11,10 +11,10 @@ export const EmergencyDetails = ({ emergencyType, reportTimestampInMs, notes}) =
 
     return (
         <div className={styles.emergencyDetails}>
-            <p className={styles.title}>Detalles de la emergencia</p>
+            <p className={styles.title}>Detalles</p>
             <div className={styles.details}>
                 <p className={styles.type}>{emergencyType}</p>
-                <p className={styles.time}>Reportada a las {time}</p>
+                <p className={styles.time}>Solicitada a las {time}</p>
             </div>
             <p className={styles.notes}>{ notes || 'Sin notas'}</p>
         </div>

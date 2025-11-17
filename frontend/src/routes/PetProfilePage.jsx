@@ -35,6 +35,10 @@ export const PetProfilePage = () => {
         name: 'speciesId',
         format: value => species.find(specie => specie.id === value).name
     },
+     {
+        label: 'Raza',
+        name: 'petRace',
+    },
     {
         label: 'Notas',
         name: 'notes',
