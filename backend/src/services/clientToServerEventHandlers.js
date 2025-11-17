@@ -216,21 +216,26 @@ const generateReportData = async (request)=>{
  */
 const generateMessageFromCounterpartData = (recipientData) => {
     if (recipientData.type == 'VET') {
-
+        
         return {
             fullname: recipientData.data.lastname + ' ' + recipientData.data.name,
             licence: recipientData.data.licence,
-            speciality: recipientData.data.speciality,
-            telephone: recipientData.data.telephone
+            // speciality: recipientData.data.speciality,
+            telephone: recipientData.data.telephone,
+            schedule: recipientData.data.schedule
         }
     } else if (recipientData.type == 'PET') {
         return {
             fullname: recipientData.data.lastname + ' ' + recipientData.data.name,
-            height: recipientData.data.height,
-            weight: recipientData.data.weight,
-            age: recipientData.data.age,
-            sex: recipientData.data.sex,
+            // height: recipientData.data.height,
+            // weight: recipientData.data.weight,
+            petName: recipientData.data.petName,
+            petAge: recipientData.data.petAge,
+            petSex: recipientData.data.petSex,
             telephone: recipientData.data.telephone,
+            petRace: recipientData.data.petRace,
+            petNotes: recipientData.data.notes,
+            speciesId: recipientData.data.speciesId
         }
     }
     return { message: 'Usario no valido' }

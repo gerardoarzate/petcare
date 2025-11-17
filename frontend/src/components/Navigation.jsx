@@ -16,7 +16,7 @@ const clinicianItems = [
 		IconComponent: AssistanceIcon
 	},
 	{
-		label: 'Paciente',
+		label: 'Cliente',
 		path: 'counterpart',
 		IconComponent: ProfileIcon
 	},

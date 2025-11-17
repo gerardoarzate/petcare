@@ -51,19 +51,23 @@ const getPatientById = async (id) => {
     const [result] = await db.query(query, [id]);
     const patient = result[0];
     
-    return patient;
-    // return {
-    //     id: patient.id,
-    //     name: patient.nombre,
-    //     lastname: patient.apellidos,
-    //     email: patient.email,
-    //     telephone: patient.telefono,
-    //     curp: patient.curp,
-    //     age: patient.edad,
-    //     sex: patient.sexo,
-    //     weight: patient.peso,
-    //     height: patient.estatura
-    // };
+    // return patient;
+    return {
+        id: patient.id,
+        name: patient.nombre,
+        lastname: patient.apellidos,
+        email: patient.email,
+        telephone: patient.telefono,
+        // curp: patient.curp,
+        petAge: patient.edad_mascota,
+        petSex: patient.sexo_mascota,
+        // weight: patient.peso,
+        // height: patient.estatura
+        petRace: patient.raza_mascota,
+        petName: patient.nombre_mascota,
+        notes: patient.notas,
+        speciesId: patient.id_especie
+    };
 };
 
 

@@ -378,27 +378,43 @@ export class ClinicianAssistanceService extends AssistanceService {
         localStorage.removeItem('patient');
     }
 
-    private handleReceiveCounterpartData(data: ReceivePatientDataEventBody) {
+    private handleReceiveCounterpartData(data: any) {
         const request: AssistanceRequest = {
             creationTimestamp: data.requestTimestamp,
             emergencyTypeId: data.emergencyTypeId,
             notes: data.notes
         };
         
-        const patient: Patient = {
+        // const patient: Patient = {
+        //     fullName: data.fullname,
+        //     age: data.age,
+        //     telephone: data.telephone,
+        //     height: data.height,
+        //     weight: data.weight,
+        //     sex: data.sex,
+        //     latitude: null,
+        //     longitude: null,
+        //     isOnline: false
+        // };
+
+        const patient: object = {
             fullName: data.fullname,
-            age: data.age,
+            petAge: data.petAge,
             telephone: data.telephone,
-            height: data.height,
-            weight: data.weight,
-            sex: data.sex,
+            // height: data.height,
+            // weight: data.weight,
+            petSex: data.petSex,
+            petName: data.petName,
+            speciesId: data.speciesId,
+            petRace: data.petRace,
+            petNotes: data.petNotes,
             latitude: null,
             longitude: null,
             isOnline: false
         };
         
         this.setRequest(request);
-        this.setPatient(patient);
+        this.setPatient(patient as Patient);
     }
 
     private handleRequestCompletedForClinician() {
@@ -513,12 +529,12 @@ export class PatientAssistanceService extends AssistanceService {
         localStorage.removeItem('clinician');
     }
 
-    private handleReceiveCounterpartData(data: ReceiveClinicianDataEventBody) {
-        const clinician: Clinician = {
+    private handleReceiveCounterpartData(data: any) {
+        const clinician: any = {
             fullName: data.fullname,
             licence: data.licence,
             telephone: data.telephone,
-            speciality: data.speciality,
+            schedule: data.schedule,
             latitude: null,
             longitude: null,
             isOnline: false

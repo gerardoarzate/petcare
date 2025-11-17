@@ -377,7 +377,7 @@ const generateMessageFromCounterpartData = (recipientData) => {
             petAge: recipientData.data.petAge,
             petSex: recipientData.data.petSex,
             speciesId: recipientData.data.speciesId,
-            notes: recipientData.data.notes,
+            petNotes: recipientData.data.notes,
             petRace: recipientData.data.petRace
         }
     }

@@ -20,7 +20,7 @@ const getRequestById = async (requestId) => {
     return !request ? null : {
         id: request.id,
         emergencyId: request.id_emergencia,
-        medicId: request.id_medico,
+        medicId: request.id_veterinario,
         patientId: request.id_mascota,
         date: request.fecha,
         initialLocation: request.ubicacion_inicial,
@@ -39,7 +39,7 @@ const getAllPendingRequests = async () => {
     return result.map(request => ({
         id: request.id,
         emergencyId: request.id_emergencia,
-        medicId: request.id_medico,
+        medicId: request.id_veterinario,
         patientId: request.id_mascota,
         date: request.fecha,
         initialLocation: request.ubicacion_inicial,
@@ -83,7 +83,7 @@ const getPendingRequestByPatientId = async (patientId) => {
     return !request ? null : {
         id: request.id,
         emergencyId: request.id_emergencia,
-        medicId: request.id_medico,
+        medicId: request.id_veterinario,
         patientId: request.id_mascota,
         date: request.fecha,
         initialLocation: request.ubicacion_inicial,
@@ -105,7 +105,7 @@ const getPendingRequestByMedicId = async (medicId) => {
     return !request ? null : {
         id: request.id,
         emergencyId: request.id_emergencia,
-        medicId: request.id_medico,
+        medicId: request.id_veterinario,
         patientId: request.id_mascota,
         date: request.fecha,
         initialLocation: request.ubicacion_inicial,
@@ -126,7 +126,7 @@ const getAssignedRequestByMedicId = async (medicId) => {
     return !request ? null : {
         id: request.id,
         emergencyId: request.id_emergencia,
-        medicId: request.id_medico,
+        medicId: request.id_veterinario,
         patientId: request.id_mascota,
         date: request.fecha,
         initialLocation: request.ubicacion_inicial,
@@ -146,7 +146,7 @@ const getAssignedRequestByPatientId = async (patientId) => {
     return !request ? null : {
         id: request.id,
         emergencyId: request.id_emergencia,
-        medicId: request.id_medico,
+        medicId: request.id_veterinario,
         patientId: request.id_mascota,
         date: request.fecha,
         initialLocation: request.ubicacion_inicial,
@@ -164,7 +164,7 @@ const getAssignedRequestByPatientId = async (patientId) => {
  * @returns {Promise<void>}
  */
 const assignMedicToRequest = async (medicId, requestId) => {
-    const query = 'UPDATE solicitudes SET id_medico = ?, estado = ? WHERE id = ?';
+    const query = 'UPDATE solicitudes SET id_veterinario = ?, estado = ? WHERE id = ?';
     await db.query(query, [medicId, typeOfRequest.ASIGNADA, requestId]);
 }
 
