@@ -55,7 +55,7 @@ const patientItems = [
 	},
 	{
 		label: 'Mascota',
-		path: 'profile',
+		path: 'pet-profile',
 		IconComponent: PetIcon
 	},
 	{

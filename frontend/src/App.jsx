@@ -16,6 +16,7 @@ import { EmergencyTypesProvider } from "./contexts/EmergencyTypesContext";
 import { AssistanceServiceProvider } from './contexts/AssistanceServiceContext';
 import { LocationProvider } from "./contexts/LocationContext";
 import { SpeciesProvider } from "./contexts/SpeciesContext";
+import { PetProfilePage } from "./routes/PetProfilePage";
 
 export const App = () => {
     return (
@@ -39,6 +40,7 @@ export const App = () => {
 											<Route path="counterpart" element={<CounterpartPage />} />
 											<Route path="chat" element={<ChatPage />} />
 											<Route path="profile" element={<ProfilePage />} />
+											<Route path="pet-profile" element={<PetProfilePage />} />
 										</Route>
 									</Routes>
 									</SpeciesProvider>

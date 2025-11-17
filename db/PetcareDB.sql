@@ -37,7 +37,7 @@ CREATE TABLE `especies` (
 
 LOCK TABLES `especies` WRITE;
 /*!40000 ALTER TABLE `especies` DISABLE KEYS */;
-INSERT INTO `especies` VALUES (1,'Perros'),(2,'Gatos'),(3,'Aves'),(4,'Reptiles'),(5,'Roedores');
+INSERT INTO `especies` VALUES (1,'Perro'),(2,'Gato'),(3,'Ave'),(4,'Reptil'),(5,'Roedor');
 /*!40000 ALTER TABLE `especies` ENABLE KEYS */;
 UNLOCK TABLES;
 
