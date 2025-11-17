@@ -218,7 +218,7 @@ const generateMessageFromCounterpartData = (recipientData) => {
     if (recipientData.type == 'VET') {
         
         return {
-            fullname: recipientData.data.lastname + ' ' + recipientData.data.name,
+            fullname: recipientData.data.name + ' ' + recipientData.data.lastname,
             licence: recipientData.data.licence,
             // speciality: recipientData.data.speciality,
             telephone: recipientData.data.telephone,
@@ -226,7 +226,7 @@ const generateMessageFromCounterpartData = (recipientData) => {
         }
     } else if (recipientData.type == 'PET') {
         return {
-            fullname: recipientData.data.lastname + ' ' + recipientData.data.name,
+            fullname: recipientData.data.name + ' ' + recipientData.data.lastname,
             // height: recipientData.data.height,
             // weight: recipientData.data.weight,
             petName: recipientData.data.petName,

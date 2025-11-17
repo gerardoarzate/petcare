@@ -16,5 +16,6 @@
 }
 
 .message.sentBySelf > .messageBubble {
-    background-color: var(--tertiary);
+    /* background-color: var(--tertiary); */
+    background-color: #f8c67c;
 }

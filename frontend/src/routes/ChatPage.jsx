@@ -6,7 +6,7 @@ import { Chat } from '../components/Chat';
 
 const AvailableClinicianView = () => (
     <div className={styles.availableClinicianView}>
-        <p className={styles.availableClinicianText}>Cuando te sea asignada una solicitud podrás comunicarte con el paciente aquí</p>
+        <p className={styles.availableClinicianText}>Cuando te sea asignada una solicitud podrás comunicarte con el dueño de la mascota aquí</p>
     </div>
 )
 
@@ -15,7 +15,7 @@ const BusyClinicianView = () => {
 
     return (
         <div className={styles.busyClinicianView}>
-            <CounterpartHeader role='Paciente' name={counterpart.fullName} />
+            <CounterpartHeader name={counterpart.fullName} />
             <Chat />
         </div>
     );
@@ -23,7 +23,7 @@ const BusyClinicianView = () => {
 
 const AvailablePatientView = () => (
     <div className={styles.availablePatientView}>
-        <p className={styles.availablePatientText}>Cuando te sea asignado un médico podrás comunicarte con él aquí</p>
+        <p className={styles.availablePatientText}>Cuando te sea asignado un veterinario podrás comunicarte con él aquí</p>
     </div>
 )
 
@@ -32,7 +32,7 @@ const BusyPatientView = () => {
 
     return (
         <div className={styles.busyPatientView}>
-            <CounterpartHeader role={counterpart.speciality} name={counterpart.fullName} />
+            <CounterpartHeader role='Veterinario' name={counterpart.fullName} />
             <Chat />
         </div>
     );
@@ -52,10 +52,10 @@ export const ChatPage = () => {
     return (
         <main className={styles.chatPage}>
             {
-                type == 'MEDICO' ? 
+                type == 'VET' ? 
                     isBusy ? <BusyClinicianView />
                     : <AvailableClinicianView />
-                : type == 'PACIENTE' ?
+                : type == 'PET' ?
                     isBusy ? <BusyPatientView />
                     : <AvailablePatientView />
                 : null
