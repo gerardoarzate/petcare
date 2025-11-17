@@ -20,10 +20,10 @@ const clinicianItems = [
         label: 'Cédula profesional',
         name: 'licence'
     },
-    {
-        label: 'Especialidad',
-        name: 'speciality'
-    },
+    // {
+    //     label: 'Especialidad',
+    //     name: 'speciality'
+    // },
     {
         label: 'Número telefónico',
         name: 'telephone'
@@ -31,6 +31,10 @@ const clinicianItems = [
     {
         label: 'Correo electrónico',
         name: 'email'
+    },
+    {
+        label: 'Horario',
+        name: 'schedule'
     }
 ];
 
@@ -44,30 +48,6 @@ const patientItems = [
         name: 'lastname'
     },
     {
-        label: 'CURP',
-        name: 'curp'
-    },
-    {
-        label: 'Edad',
-        name: 'age',
-        format: value => `${value} años`
-    },
-    {
-        label: 'Sexo',
-        name: 'sex',
-        format: value => value == 'M' ? 'Masculino' : 'Femenino'
-    },
-    {
-        label: 'Estatura',
-        name: 'height',
-        format: value => `${Number(value)} metros`
-    },
-    {
-        label: 'Peso',
-        name: 'weight',
-        format: value => `${Number(value)} kilogramos`
-    },
-    {
         label: 'Número telefónico',
         name: 'telephone'
     },
@@ -79,14 +59,9 @@ const patientItems = [
 
 export const ProfilePage = () => {
     const userType = useToken().tokenData?.type;
-    const items = userType == 'MEDICO' ? clinicianItems : patientItems;
+    const items = userType == 'VET' ? clinicianItems : patientItems;
     const profile = useProfile();
     
-    return  <>
-    <div className={styles.logOutContainer}>
-                <LogOutButton />
-            </div></>
-
     return (
         <main className={styles.profilePage}>
             <PageTitle>Perfil</PageTitle>
