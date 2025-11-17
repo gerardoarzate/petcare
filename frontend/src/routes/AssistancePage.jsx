@@ -18,7 +18,7 @@ import { useLocation } from 'react-router';
 
 const AvailableClinicianView = ({ profile }) => (
     <>
-        <RoundedSpecialityHeader speciality={profile?.speciality} name={profile?.name} />
+        <RoundedSpecialityHeader speciality={'Veterinario'} name={profile?.name} />
         <div className={styles.availableClinicianContent}>
             <div className={styles.clinicianAvailabilityContainer}>
                 <p>Te encuentras</p>
@@ -36,7 +36,7 @@ const BusyClinicianView = ({ profile }) => {
     const endAssistance = async () => {
         const { value } = await Dialog.confirm({
             title: 'Finalizar asistencia',
-            message: '¿Desea finalizar la asistencia a este paciente?',
+            message: '¿Desea finalizar la asistencia?',
             okButtonTitle: 'Finalizar',
             cancelButtonTitle: 'Cancelar'
         })
@@ -137,7 +137,7 @@ const BusyPatientView = () => {
 
     return (
         <div className={styles.busyPatientView}>
-            <SpecialityHeader speciality={counterpart?.speciality} name={counterpart?.fullName} />
+            <SpecialityHeader speciality={'Veterinario'} name={counterpart?.fullName} />
             {/* TODO: Display real destination */}
             <Destination destination={'Facultad de Informática, UAQ Campus Juriquilla'} /> 
             <div className={styles.busyPatientContent}>

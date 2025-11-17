@@ -1,5 +1,6 @@
 import styles from './RoundedSpecialityHeader.module.css';
 import { SpecialityIcon } from '../components/SpecialityIcon';
+import logo from '../assets/logo.png';
 
 export const RoundedSpecialityHeader = ({ speciality, name }) => {
     const specialityCodename = speciality && speciality.toLowerCase().replace(/[áéíóú]/g, c => (
@@ -10,11 +11,14 @@ export const RoundedSpecialityHeader = ({ speciality, name }) => {
     return (
         <div className={styles.roundedSpecialityHeader}>
 
-            { speciality && (
+            <div className={styles.logoContainer}>
+                <img src={logo} />
+            </div>
+            {/* { speciality && (
                 <div className={styles.iconContainer}>
                     <SpecialityIcon speciality={specialityCodename} />
                 </div>
-            )}
+            )} */}
 
             { (speciality && name) && (
                 <p className={styles.text}>{speciality} {displayName}</p>

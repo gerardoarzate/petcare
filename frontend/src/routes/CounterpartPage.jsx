@@ -43,9 +43,9 @@ const BusyClinicianView = ({ counterpart }) => {
     return (
     <div className={styles.busyClinicianView}>
         <CounterpartData
-            title='Datos del usuario'
+            title='Datos del dueño'
             elements={[
-                { label: 'Dueño', value: counterpart.fullName },
+                { label: 'Nombre', value: counterpart.fullName },
                 // [
                 //     { label: 'Sexo', value: counterpart.sex == 'F' ? 'Femenino' : 'Masculino' },
                 //     { label: 'Edad', value: `${counterpart.age} años` }
@@ -60,7 +60,7 @@ const BusyClinicianView = ({ counterpart }) => {
         <CounterpartData
             title='Datos de la mascota'
             elements={[
-                { label: 'Nombre de la mascota', value: counterpart.petName },
+                { label: 'Nombre', value: counterpart.petName },
                 [
                     { label: 'Sexo', value: counterpart.petSex == 'hembra' ? 'Hembra' : 'Macho' },
                     { label: 'Edad', value: `${counterpart.petAge} años` }
@@ -106,7 +106,7 @@ export const CounterpartPage = () => {
 
     const { type } = tokenData;
     const isBusy = !!counterpart;
-console.log(counterpart)
+
     return (
         <main className={styles.counterpartPage}>
             {

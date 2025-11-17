@@ -9,11 +9,11 @@ export const SpecialityHeader = ({ speciality, name }) => {
 
     return (
         <div className={styles.specialityHeader}>
-            { speciality && (
+            {/* { speciality && (
                 <div className={styles.iconContainer}>
                     <SpecialityIcon speciality={specialityCodename} />
                 </div>
-            )}
+            )} */}
 
             { (speciality && name) && (
                 <p className={styles.text}>{speciality} {displayName}</p>

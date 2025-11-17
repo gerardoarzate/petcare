@@ -9,5 +9,6 @@
 }
 
 .destinationName {
-    color: var(--secondary);
+    /* color: var(--secondary); */
+    color: var(--primary)
 }

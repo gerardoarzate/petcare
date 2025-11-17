@@ -29,7 +29,7 @@
 .ellipse {
     position: absolute;
     bottom: 0;
-    background-color: var(--primary);
+    background-color: var(--secondary);
     border-radius: 100%;
     width: 150vw;
     height: 40vh;
@@ -42,5 +42,12 @@
     z-index: -2;
     height: 50%;
     width: 100%;
-    background-color: var(--primary);
+    background-color: var(--secondary);
+}
+
+.logoContainer > img {
+    width: 45%;
+    height: auto;
+    margin: auto;
+    display: block;
 }
