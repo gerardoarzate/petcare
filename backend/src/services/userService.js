@@ -26,7 +26,8 @@ setInterval(async () => {
     for (const pendingRequest of pendingRequests) {
 
         // just connected medics that are not assigned to a request are candidates
-        const medicCandidates = (await getAllConnectedMedics()).filter(candidate => (!candidate?.patientAssigned));
+        // const medicCandidates = (await getAllConnectedMedics()).filter(candidate => (!candidate?.patientAssigned));
+        const medicCandidates = await getAllConnectedMedics();
 
 
 
@@ -36,7 +37,8 @@ setInterval(async () => {
             if (!requestAssigned) { // if the medic is not assigned to a request yet
                 
                 const medic = await medicService.getMedicDataById(candidate.userId);
-                medic.emergenciesSpecialities.map(e => e.emergencyTypeId).includes(pendingRequest.emergencyId) ? candidates.push(medic) : null;
+                // medic.emergenciesSpecialities.map(e => e.emergencyTypeId).includes(pendingRequest.emergencyId) ? candidates.push(medic) : null;
+                candidates.push(medic);
             }
         }
 
@@ -359,17 +361,24 @@ const generateMessageFromCounterpartData = (recipientData) => {
         return {
             fullname: recipientData.data.name + ' ' + recipientData.data.lastname,
             licence: recipientData.data.licence,
-            speciality: recipientData.data.speciality,
-            telephone: recipientData.data.telephone
+            // speciality: recipientData.data.speciality,
+            telephone: recipientData.data.telephone,
+            schedule: recipientData.data.schedule,
         }
     } else if (recipientData.type == 'PET') {
         return {
             fullname: recipientData.data.name + ' ' + recipientData.data.lastname,
-            height: recipientData.data.height,
-            weight: recipientData.data.weight,
-            age: recipientData.data.age,
-            sex: recipientData.data.sex,
+            // height: recipientData.data.height,
+            // weight: recipientData.data.weight,
+            // age: recipientData.data.age,
+            // sex: recipientData.data.sex,
             telephone: recipientData.data.telephone,
+            petName: recipientData.data.petName,
+            petAge: recipientData.data.petAge,
+            petSex: recipientData.data.petSex,
+            speciesId: recipientData.data.speciesId,
+            notes: recipientData.data.notes,
+            petRace: recipientData.data.petRace
         }
     }
     return { message: 'Usario no valido' }
