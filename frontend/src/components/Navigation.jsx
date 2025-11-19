@@ -50,7 +50,7 @@ const patientItems = [
 	},
 	{
 		label: 'Dudas',
-		path: 'chat',
+		path: 'ai',
 		IconComponent: QuickQuestionIcon
 	},
 	{

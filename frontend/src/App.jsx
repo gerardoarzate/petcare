@@ -17,6 +17,8 @@ import { AssistanceServiceProvider } from './contexts/AssistanceServiceContext';
 import { LocationProvider } from "./contexts/LocationContext";
 import { SpeciesProvider } from "./contexts/SpeciesContext";
 import { PetProfilePage } from "./routes/PetProfilePage";
+import { AIPage } from "./routes/AIPage";
+import { AIContextProvider } from "./contexts/AIContext";
 
 export const App = () => {
     return (
@@ -25,27 +27,30 @@ export const App = () => {
 				<TokenProvider>
 					<APIProvider>
 						<AssistanceServiceProvider>
-							<ProfileProvider>
-								<EmergencyTypesProvider>
-									<SpeciesProvider>
-									<Routes>
-										<Route index element={<IndexPage />} />
-										<Route path="login" element={<LoginPage />} />
-										<Route path="signup-clinician" element={<ClinicianSignUpPage />} />
-										<Route path="signup-patient" element={<PatientSignUpPage />} />
-										<Route path="app-settings" element={<SettingsPage />} />
-										<Route path="navigation" element={<Layout />}>
-											<Route index element={<AssistancePage />} />
-											<Route path="assistance" element={<AssistancePage />} />
-											<Route path="counterpart" element={<CounterpartPage />} />
-											<Route path="chat" element={<ChatPage />} />
-											<Route path="profile" element={<ProfilePage />} />
-											<Route path="pet-profile" element={<PetProfilePage />} />
-										</Route>
-									</Routes>
-									</SpeciesProvider>
-								</EmergencyTypesProvider>
-							</ProfileProvider>
+							<AIContextProvider>
+								<ProfileProvider>
+									<EmergencyTypesProvider>
+										<SpeciesProvider>
+										<Routes>
+											<Route index element={<IndexPage />} />
+											<Route path="login" element={<LoginPage />} />
+											<Route path="signup-clinician" element={<ClinicianSignUpPage />} />
+											<Route path="signup-patient" element={<PatientSignUpPage />} />
+											<Route path="app-settings" element={<SettingsPage />} />
+											<Route path="navigation" element={<Layout />}>
+												<Route index element={<AssistancePage />} />
+												<Route path="assistance" element={<AssistancePage />} />
+												<Route path="counterpart" element={<CounterpartPage />} />
+												<Route path="chat" element={<ChatPage />} />
+												<Route path="ai" element={<AIPage />} />
+												<Route path="profile" element={<ProfilePage />} />
+												<Route path="pet-profile" element={<PetProfilePage />} />
+											</Route>
+										</Routes>
+										</SpeciesProvider>
+									</EmergencyTypesProvider>
+								</ProfileProvider>
+							</AIContextProvider>
 						</AssistanceServiceProvider>
 					</APIProvider>
 				</TokenProvider>
